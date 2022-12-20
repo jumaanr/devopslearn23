@@ -64,5 +64,6 @@ git branch -a # view all the branches both local and remote
 git pull origin master # We can fetch and merge remote changes directly into our local master branch. No need to perform fetch and merge seperately. 
 
 #New comment added
+#Second Comment is added
 
 
