@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# documentation : https://git-scm.com/docs/
+
 # Installation #
 sudo apt update
 sudo apt install git -y
