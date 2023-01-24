@@ -32,7 +32,7 @@ git rm notes.txt -f/--cached  #remove a tracked file , --cached option will reta
 echo "myFile.json" >> .gitignore
 cat .ignore
 
-#Git Log - Checking commit history
+#Git Log - Checking commit histor
 git log  # check the details of commit history
 git log --oneline # get a short description of commit history
 git log --name-only #get the list of changed files and their authors/modifires
@@ -113,6 +113,7 @@ git reflog #shows all the actions that have been taken on the repo
 #How to recover using reflog : Refer the reflog and perform a hard reset to the point where you want to restore
 git reset --hard 8ad5
 #git log only gives you the history of events, but reflog gives you all the states of the repository including merges, resets , reverts etc. 
+#~ End of Course ~
 
 
 
