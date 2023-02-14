@@ -51,6 +51,8 @@ New-NetFirewallRule -DisplayName "Allow All Traffic" -Direction Outbound -Action
 New-NetFirewallRule -DisplayName "Allow All Traffic" -Direction Inbound -Action Allow
 
 
+#Install a Domain Controller
+Install-ADDSDomainController -DomainName woshub.com -InstallDns:$true -NoGlobalCatalog:$false -SiteName 'Hamburg' -NoRebootOnCompletion:$true -Force:$true -SafeModeAdministratorPassword (ConvertTo-SecureString 'R0DCP@ssw0rd' -AsPlainText -Force) -Credential (get-credential WOSHUB\Administrator) –verbose
 
 
 
