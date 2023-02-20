@@ -50,6 +50,8 @@ Enable-NetFirewallRule -DisplayGroup "File and Printer Sharing"
 New-NetFirewallRule -DisplayName "Allow All Traffic" -Direction Outbound -Action Allow
 New-NetFirewallRule -DisplayName "Allow All Traffic" -Direction Inbound -Action Allow
 
+#Install RSAT Tools on Win10
+Get-WindowsCapability -Name RSAT* -Online | Add-WindowsCapability -Online
 
 #Install a Domain Controller
 Install-ADDSDomainController -DomainName woshub.com -InstallDns:$true -NoGlobalCatalog:$false -SiteName 'Hamburg' -NoRebootOnCompletion:$true -Force:$true -SafeModeAdministratorPassword (ConvertTo-SecureString 'R0DCP@ssw0rd' -AsPlainText -Force) -Credential (get-credential WOSHUB\Administrator) –verbose
