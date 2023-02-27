@@ -23,7 +23,7 @@ git config --list #shows the current values
 git commit #when you open this command without any options , opens a text editor - here you provide a commit message 
 git add .  #stage all the files in working area
 
-#Recover and Remove
+#Restore Recover and Remove
 #Even if you commit or staged a file a copy will be saved, so you can restore the file
 git restore myFile.json
 git restore --staged myFile.json #remove a file from staging area
