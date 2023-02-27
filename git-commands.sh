@@ -19,6 +19,10 @@ git add myFile.json #Stage a file for commit ready
 git commit -m "Added first story" #commit all staged files with a useful comment
 git config user.name "sarah" #add a user for commit, so all commits are recorded in the name of the author
 git config user.email "sarah@example.com"  #add user's email address who perform commit
+
+git config --global user.name "Jumaan Rimzy"
+git config --global user.email "jumaanr@outlook.com"
+
 git config --list #shows the current values
 git commit #when you open this command without any options , opens a text editor - here you provide a commit message 
 git add .  #stage all the files in working area
