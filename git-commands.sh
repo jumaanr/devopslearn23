@@ -26,6 +26,7 @@ git config --global user.email "jumaanr@outlook.com"
 git config --list #shows the current values
 git commit #when you open this command without any options , opens a text editor - here you provide a commit message 
 git add .  #stage all the files in working area
+git add *.txt #pattern base staging , where you add the txt files only
 
 #Restore Recover and Remove
 #Even if you commit or staged a file a copy will be saved, so you can restore the file
