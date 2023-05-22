@@ -74,6 +74,8 @@ git push -u origin master #creates a link between local master and remote master
 #Whenever new data added to remote master branch , automatically the local master branch will pull
 #the data from there so next time, you dont have to specify git push origin master , instead perform
 git push 
+git push -u origin --all  #This pushes changes of all branches to origin
+git push -u origin main  #This pushes changes only with the main branch
 
 #Git Pull Request
 #When working in collaboration , directly pushing the commits to the main branch is not advised
