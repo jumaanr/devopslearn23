@@ -56,8 +56,9 @@ git branch -d newBranch2 #Delete a branch
 git branch #list all the branches currently you have
 
 #Git Mergin a Branch
-git checkout master  #checkout to master branch
+git checkout master  #First checkout to master branch
 git merge feature/signup #perform the merge 
+git merge --squash FeatureA #merge FeatureA branch to the current checked out branch. Squash merge will happen with minimum commits
 
 #Working with Remote Repositories (GitHub)--------------------------------------------------
 
@@ -123,7 +124,14 @@ git reflog #shows all the actions that have been taken on the repo
 git reset --hard 8ad5
 #git log only gives you the history of events, but reflog gives you all the states of the repository including merges, resets , reverts etc. 
 
-#~ Still the course is being modified ~
+#To see the commits in form of a graph
+git log --graph
+
+#Tagging in Git
+git tag -a v1.0 -m "Version 1.0 release"  #tag the current commit you are on
+git tag #check all the tags placed in current branch
+git tag v1.0  #shows the version already exists
+git show #
 
 
 
