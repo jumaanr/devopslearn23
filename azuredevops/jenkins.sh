@@ -26,6 +26,27 @@ sudo -s
 #Check initial admin password
 sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 
+#------------- Prepare the VM for build by Jenkins----------------#
+sudo apt update
+sudo apt install git
+git --version
+
+wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+sudo dpkg -i packages-microsoft-prod.deb
+rm packages-microsoft-prod.deb
+
+sudo apt-get update; \
+    sudo apt-get install -y apt-transport-https && \
+    sudo apt-get update && \
+    sudo apt-get install -y dotnet-sdk-6.0
+
+# check dotnet version
+dotnet --version
 
 
+#allow permissions to Jenkins directory
+sudo systemctl stop Jenkins
+sudo systemctl start Jenkins
 
+sudo chmod -R a+rwx /var/lib/jenkins/
+sudo chmod -R a+rwx /tmp/NuGetScratch
