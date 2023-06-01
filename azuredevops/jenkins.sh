@@ -1,4 +1,8 @@
 # Documentation : https://www.jenkins.io/doc/book/installing/linux/
+# VM Connection
+ssh -i /c/lib/keys/vm-ubuntu-azdevops-test-eastus-01_key.pem admin-devops@52.249.192.224
+# username : jenkins-admin / password : jenkins@2022
+#reset password of jenkins : https://www.youtube.com/watch?v=vkezUwXr3ZQ
 
 #check Ubuntu version
 lsb_release -a
@@ -31,7 +35,8 @@ sudo apt update
 sudo apt install git
 git --version
 
-wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+#Install .NET SDK
+sudo wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
 sudo dpkg -i packages-microsoft-prod.deb
 rm packages-microsoft-prod.deb
 
@@ -48,5 +53,5 @@ dotnet --version
 sudo systemctl stop Jenkins
 sudo systemctl start Jenkins
 
-sudo chmod -R a+rwx /var/lib/jenkins/
+sudo chmod -R a+rwx /var/lib/jenkins/  #This is like a home directory
 sudo chmod -R a+rwx /tmp/NuGetScratch
