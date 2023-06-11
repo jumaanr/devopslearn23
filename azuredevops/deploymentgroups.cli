@@ -1,0 +1,53 @@
+# Set the variables
+resourceGroup="deploymentgroup-rg-azdevops-test-eastus-01"
+region="eastus"
+vmName=""
+adminUsername="devopsadmin"
+adminPassword="Pass@123#"
+vnetName="vnet-azdevops-test-eastus-01"
+subnetName="cicdSubnet"
+publicInboundPorts="RDP,HTTP,HTTPS,TCP:8080"
+osDiskType="StandardSSD"
+
+# Create the resource group
+az group create --name $resourceGroup --location $region
+
+# Create the virtual network and subnet
+az network vnet create --name $vnetName --resource-group $resourceGroup --location $region --subnet-name $subnetName
+
+# Create the public IP address
+az network public-ip create --name "${vmName}-publicip" --resource-group $resourceGroup --location $region --sku "Basic"
+
+# Create the network security group
+az network nsg create --name "${vmName}-nsg" --resource-group $resourceGroup --location $region
+
+# Allow inbound ports on the network security group
+az network nsg rule create --name "Allow-RDP" --nsg-name "${vmName}-nsg" --resource-group $resourceGroup --priority 100 --protocol Tcp --destination-port-range 3389 --access Allow
+az network nsg rule create --name "Allow-HTTP" --nsg-name "${vmName}-nsg" --resource-group $resourceGroup --priority 101 --protocol Tcp --destination-port-range 80 --access Allow
+az network nsg rule create --name "Allow-HTTPS" --nsg-name "${vmName}-nsg" --resource-group $resourceGroup --priority 102 --protocol Tcp --destination-port-range 443 --access Allow
+az network nsg rule create --name "Allow-TCP-8080" --nsg-name "${vmName}-nsg" --resource-group $resourceGroup --priority 103 --protocol Tcp --destination-port-range 8080 --access Allow
+
+# Create the virtual machine
+az vm create \
+    --name $vmName \
+    --resource-group $resourceGroup \
+    --location $region \
+    --image Win2019Datacenter \
+    --size Standard_D2s_v3 \
+    --admin-username $adminUsername \
+    --admin-password $adminPassword \
+    --authentication-type password \
+    --nics "${vmName}-nic" \
+    --eviction-policy Deallocate \
+    --priority Spot \
+    --storage-sku StandardSSD \
+    --os-disk-name "${vmName}-osdisk" \
+    --vnet-name $vnetName \
+    --subnet $subnetName \
+    --public-ip-address "${vmName}-publicip" \
+    --nsg "${vmName}-nsg" \
+    --tags "env=test" "lab=devops" \
+    --no-wait
+
+# Disable boot diagnostics for the virtual machine
+az vm boot-diagnostics disable --name $vmName --resource-group $resourceGroup

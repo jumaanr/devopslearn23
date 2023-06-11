@@ -29,3 +29,13 @@ $gatewaySubnet = Add-AzVirtualNetworkSubnetConfig -Name $subnetConfig.Name -Addr
 
 # Update the VNet with all the subnets
 $vnet | Set-AzVirtualNetwork
+
+#create a webapp in a certain app serviceplan
+
+New-AzWebApp -Name "MyWebApp" -ResourceGroupName "MyResourceGroup" -Location "West US" -AppServicePlan "MyAppServicePlan" -RuntimeStack "dotnetcore" -OperatingSystem "Windows"
+
+$templateFile = "C:\lib\template\template.json"
+New-AzResourceGroupDeployment `
+  -Name webappTemplate `
+  -ResourceGroupName rg-azdevops-test-eastus-01 `
+  -TemplateFile $templateFile
