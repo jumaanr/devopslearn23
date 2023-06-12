@@ -7,13 +7,14 @@ Set-AzContext -SubscriptionId $subscriptionID
 # Set the variables
 $resourceGroup = "deploymentgroup-rg-azdevops-test-eastus-01"
 $region = "EastUS"
-$vmName = "my-vm"
+$vmName = "vm1-deploymentgroup-rg-azdevops-test-eastus-01"
 $adminUsername = "devopsadmin"
-$adminPassword = ConvertTo-SecureString -String "Pass@123#" -AsPlainText -Force
+$adminPassword = ConvertTo-SecureString -String "wdqF4dND53*g" -AsPlainText -Force
 $vnetName = "vnet-azdevops-test-eastus-01"
 $subnetName = "cicdSubnet"
 $publicInboundPorts = "3389", "80", "443", "8080"
 $osDiskType = "StandardSSD"
+$location = "EastUS"
 
 # Create the resource group
 New-AzResourceGroup -Name $resourceGroup -Location $region
@@ -40,6 +41,8 @@ $vmConfig = New-AzVMConfig -VMName $vmName -VMSize "Standard_D2s_v3" -Priority "
 $vmConfig = Set-AzVMOperatingSystem -VM $vmConfig -Windows -ComputerName $vmName -Credential (New-Object System.Management.Automation.PSCredential -ArgumentList $adminUsername, $adminPassword) -ProvisionVMAgent -EnableAutoUpdate
 $vmConfig = Add-AzVMNetworkInterface -VM $vmConfig -Id $vnet.Id -Primary
 $vmConfig = Set-AzVMSourceImage -VM $vmConfig -PublisherName "MicrosoftWindowsServer" -Offer "WindowsServer" -Skus "2019-Datacenter" -Version "latest"
-$vmConfig = Set-AzVMOSDisk -VM $vmConfig -Name "${vmName}-osdisk" -StorageAccountType $osDiskType -CreateOption FromImage
+$vmConfig = Set-AzVMOSDisk -VM $vmConfig -Name "${vmName}-osdisk" -CreateOption FromImage -Windows
 
+
+New-AzVM -ResourceGroupName $resourceGroup -Location $location -VM $vmConfig
 
